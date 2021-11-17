@@ -1,0 +1,21 @@
+* {
+ text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+div {
+  margin-top: 15vh;
+}
+
+.thank-you {
+}
+
+button {
+  background-color: #f68c1f;
+  color: #fff;
+  font-size: 2.5vh;
+  width: 15vw;
+  &:hover {
+    opacity: 0.8;
+  }
+}

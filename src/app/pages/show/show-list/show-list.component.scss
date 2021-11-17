@@ -1,0 +1,42 @@
+div {
+  display: inline-flex;
+  margin-top: 8vh;
+  .example-card {
+    min-width: 30vw;
+    padding: 1.5vw;
+    box-shadow: none;
+    text-align: center;
+    img {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      border-radius: 100%;
+    }
+    ul {
+      font-size: 1.8vh;
+      list-style-type: none;
+      li {
+        padding-top: 2vh;
+        &:first-child {
+          font-weight: 500;
+          font-size: 2.5vh;
+        }
+      }
+    }
+    button {
+      margin-left: 2vw;
+      background-color: #f68c1f;
+      color: #fff;
+      font-size: 2.5vh;
+      width: 8vw;
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+  }
+}

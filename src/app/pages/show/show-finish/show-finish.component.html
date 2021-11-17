@@ -1,0 +1,9 @@
+<div>
+  <h1 id="thank-you">
+    Obrigado por comprar o show do(a) {{show.description}} no dia {{show.dateShow | date : 'dd/MM/yyyy HH:mm'}} em
+    {{show.address}} por {{show.price | currency: 'BRL'}}.</h1>
+
+  <h2>Bom show!</h2>
+
+  <button (click)="backToMenu()" mat-button>Voltar ao menu principal</button>
+</div>
