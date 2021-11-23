@@ -1,11 +1,11 @@
-import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Show } from 'src/app/interfaces/show';
 import { ShowBuy } from '../interfaces/show-buy';
 import { User } from '../interfaces/user';
+import { environment } from './../../environments/environment';
 import { Login } from './../interfaces/login';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

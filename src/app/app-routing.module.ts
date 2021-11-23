@@ -1,11 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ShowListComponent } from "./pages/show/show-list/show-list.component";
+import { ShowBuyComponent } from "./pages/show/show-buy/show-buy.component";
+import { ShowFinishComponent } from "./pages/show/show-finish/show-finish.component";
+import { RegisterComponent } from "./pages/register/register/register.component";
+import { LoginComponent } from "./pages/login/login/login.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
-  { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
-  { path: 'show', loadChildren: () => import('./pages/show/show.module').then(m => m.ShowModule) }
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'show', children: [
+      { path: '', component: ShowListComponent },
+      { path: 'buy/:id', component: ShowBuyComponent },
+      { path: 'finish/:id', component: ShowFinishComponent },
+    ]
+  }
 ];
 
 @NgModule({

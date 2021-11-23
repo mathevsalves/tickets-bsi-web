@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ShowListComponent } from './show-list.component';
+
 
 describe('ShowListComponent', () => {
   let component: ShowListComponent;
@@ -19,7 +19,7 @@ describe('ShowListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
 });
