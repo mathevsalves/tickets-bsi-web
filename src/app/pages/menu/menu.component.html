@@ -1,0 +1,7 @@
+<span *ngFor="let item of menu">
+    <button *ngIf="!item.subItem?.length" mat-button (click)="goTo(item.link)">{{item.label}}</button>
+    <button *ngIf="item.subItem?.length" mat-button [matMenuTriggerFor]="afterMenu">{{item.label}}</button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+        <button mat-menu-item *ngFor="let subItem of item.subItem" (click)="goTo(subItem.link)">{{subItem.label}}</button>
+    </mat-menu>
+</span>

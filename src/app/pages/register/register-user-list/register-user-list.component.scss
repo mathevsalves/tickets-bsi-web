@@ -1,0 +1,21 @@
+.btn-add {
+  text-align: center;
+  margin: 0 auto;
+}
+table {
+  margin: 1vw;
+  min-width: 90%;
+  td {
+    &:first-child {
+      width: 20%;
+    }
+    &:nth-child(2),
+    &:nth-child(3) {
+      width: 38%;
+    }
+    &:nth-child(4),
+    &:nth-child(5) {
+      width: 3%;
+    }
+  }
+}
