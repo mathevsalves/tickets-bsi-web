@@ -6,6 +6,7 @@ import { ShowBuy } from '../interfaces/show-buy';
 import { User } from '../interfaces/user';
 import { environment } from './../../environments/environment';
 import { Login } from './../interfaces/login';
+import * as FileSaver from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,29 @@ export class TicketsService {
 
   constructor(private http: HttpClient) { }
 
-  public postRegister(register: User): Observable<User> {
+  public createUser(user: User): Observable<User> {
     const url = `${environment.api}/users`;
-    return this.http.post<User>(url, register);
+    return this.http.post<User>(url, user);
+  }
+
+  public alterUser(user: User): Observable<User> {
+    const url = `${environment.api}/users`;
+    return this.http.put<User>(url, user);
+  }
+
+  public findAllUser(): Observable<User[]> {
+    const url = `${environment.api}/users`;
+    return this.http.get<User[]>(url);
+  }
+
+  public deleteByIdUser(id: number): Observable<void> {
+    const url = `${environment.api}/users/${id}`;
+    return this.http.delete<void>(url);
+  }
+
+  public findByIdUser(id: number): Observable<User> {
+    const url = `${environment.api}/users/${id}`;
+    return this.http.get<User>(url);
   }
 
   public postLogin(login: Login) {

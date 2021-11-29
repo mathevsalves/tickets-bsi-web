@@ -1,23 +1,22 @@
-div {
-  color: #fff;
-  background-color: #f68c1f;
-  text-align: center;
-  padding: 2vh;
-}
-
 #header {
-  display: flex;
+  background-color: #f68c1f;
+  color: #fff;
   align-items: center;
-  padding-left: 40vw;
-}
-
-#title {
-  font-size: 4vh;
-  font-family: Arial, sans-serif;
-  text-transform: uppercase;
-}
-
-#logo {
-  width: 25px;
-  height: 25px;
+  text-align: center;
+  div {
+    display: flex;
+    max-width: 20vw;
+    margin: 0 auto;
+    padding: 2vh 1vh 1vh;
+    #title {
+      font-size: 4vh;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    
+    #logo {
+      width: 25px;
+      height: 25px;
+    }
+  }  
 }

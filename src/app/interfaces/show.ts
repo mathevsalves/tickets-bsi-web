@@ -1,6 +1,6 @@
 export interface Show {
   id: number,
-  photo: string,
+  photo: any,
   name: string,
   address: string,
   dateShow: Date,

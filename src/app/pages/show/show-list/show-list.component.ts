@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Show } from 'src/app/interfaces/show';
 import { TicketsService } from 'src/app/services/tickets.service';
@@ -15,7 +16,8 @@ export class ShowListComponent implements OnInit {
   constructor(
     private ticketsService: TicketsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,12 @@ export class ShowListComponent implements OnInit {
     this.ticketsService
       .findAllShows()
       .subscribe(data => {
+        data.forEach(fe => {
+          if (fe.photo != null) {
+            let objectURL = 'data:image;base64,' + fe.photo;
+            fe.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        });
         this.shows = data;
       },
         (error) => {
