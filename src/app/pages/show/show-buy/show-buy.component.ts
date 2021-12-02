@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from 'src/app/interfaces/order';
+import { Payment } from 'src/app/interfaces/payment';
 import { Show } from 'src/app/interfaces/show';
 import { TicketsService } from 'src/app/services/tickets.service';
 import { ShowBuy } from './../../../interfaces/show-buy';
@@ -13,33 +16,38 @@ import { ShowBuy } from './../../../interfaces/show-buy';
 export class ShowBuyComponent implements OnInit {
 
   private id: number = 0;
-  public show!: Show;
+  private quantity: number = 1;
+  public show: Show | null = null;
 
   public nameFormControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
   public numberFormControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]);
   public validatedFormControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]);
   public cvvFormControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]);
-  public cpfFormControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]);
+  public cpfFormControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]);
   public emailFormControl: FormControl = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
     private ticketsService: TicketsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(data => {
       this.id = parseInt(data.id, 10);
-      this.findByIdShow(this.id);
+      this.quantity = parseInt(data.quantity, 10);
+      this.findByIdShow(this.id, this.quantity);
     })
   }
 
-
-  private findByIdShow(id: number) {
+  private findByIdShow(id: number, quantity: number) {
     this.ticketsService
       .findByIdShow(id)
       .subscribe(data => {
+        let objectURL = 'data:image;base64,' + data.photo;
+        data.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        data.quantityBuy = quantity;
         this.show = data;
       },
         (error) => {
@@ -49,14 +57,29 @@ export class ShowBuyComponent implements OnInit {
 
   public buyShow() {
     if (!this.validatedForm()) {
+      const product: any = {
+        id: this.show?.id,
+        address: this.show?.address,
+        dateShow: this.show?.dateShow,
+        description: this.show?.description,
+        name: this.show?.name,
+        photo: null,
+        price: this.show?.price
+      }
+      const payment: Payment = this.valueForm();
+      const order: Order = {
+        id: null,
+        payment: payment,
+        paymentMoment: null,
+        price: this.show?.price,
+        quantity: this.show?.quantityBuy,
+        total: (this.show?.price as any) * (this.show?.quantityBuy as any),
+        product: product
+      }
       this.ticketsService
-        .buyShow(this.valueForm())
+        .createOrder(order)
         .subscribe(data => {
-          if (data) {
-            console.log('Compra finalizada');
-            this.router.navigate(['show/finish', this.id]);
-          } else
-            console.log('Algo deu errado, tente novamente');
+          this.router.navigate(['show/finish', data.id]);
         },
           (error) => {
             console.log(error);
@@ -73,19 +96,23 @@ export class ShowBuyComponent implements OnInit {
       this.emailFormControl.invalid;
   }
 
-  private valueForm() {
-    const showBuy: ShowBuy = {
+  private valueForm(): Payment {
+    const validated: string = this.validatedFormControl.value.toString();
+    const payment: Payment = {
       id: null,
-      idShow: this.id,
       name: this.nameFormControl.value,
       number: this.numberFormControl.value,
-      validated: this.validatedFormControl.value,
+      validated: `${validated.substr(0,2)}/${validated.substr(2,2)}`,
       cvv: this.cvvFormControl.value,
       cpf: this.cpfFormControl.value,
-      email: this.emailFormControl.value,
-      moment: new Date()
+      email: this.emailFormControl.value
     }
-    return showBuy;
+    return payment;
+  }
+
+  public getTotal(show: Show | null): any {
+    if (show != null)
+      return show.quantityBuy * show.price;
   }
 
 }

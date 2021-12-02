@@ -26,6 +26,10 @@ import { RegisterUserComponent } from './pages/register/register-user/register-u
 import { ShowBuyComponent } from "./pages/show/show-buy/show-buy.component";
 import { ShowFinishComponent } from "./pages/show/show-finish/show-finish.component";
 import { ShowListComponent } from "./pages/show/show-list/show-list.component";
+import { RegisterShowComponent } from './pages/register/register-show/register-show.component';
+import { RegisterShowListComponent } from './pages/register/register-show-list/register-show-list.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PoChartModule, PoModule } from '@po-ui/ng-components';
 
 export const options: Partial<IConfig | null> | (() => Partial<IConfig>) = null;
 
@@ -44,7 +48,10 @@ registerLocaleData(localePt);
         ShowFinishComponent,
         MenuComponent,
         RegisterUserComponent,
-        RegisterUserListComponent
+        RegisterUserListComponent,
+        RegisterShowComponent,
+        RegisterShowListComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,
@@ -67,7 +74,9 @@ registerLocaleData(localePt);
         FlexLayoutModule,
         MatMenuModule,
         MatTableModule,
-        MatTabsModule
+        MatTabsModule,
+        PoModule,
+        PoChartModule
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'pt-BR' }

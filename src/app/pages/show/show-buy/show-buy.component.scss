@@ -2,20 +2,34 @@ div {
   width: 50vw;
   margin: 1vh auto;
   .main {
-    margin-top: 15vh;
-    display: inline-flex;
-    .photo {
-      width: 16vw;
-      margin-right: 1vw;
+    h1 {
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 500;
+    }
+    > div {
+      display: inline-flex;
       img {
-        max-width: 15vw;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
         border-radius: 100%;
       }
+      > div {
+        padding-left: 1vw;
+        > span {
+          display: block;
+          font-size: 2vh;
+          padding: 0.5vh 0;
+        }
+      }
     }
+    margin-top: 15vh;
     .form {
+      display: inline;
       width: 34vw;
       mat-form-field {
-        margin:0 0 0 0.5vh;
+        margin: 0 0 0 0.5vh;
       }
     }
   }

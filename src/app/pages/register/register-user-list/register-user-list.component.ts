@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
@@ -27,12 +28,10 @@ export class RegisterUserListComponent implements OnInit {
     this.ticketsService
       .findAllUser()
       .subscribe(data => {
-        data.forEach(fe => {
           this.dataSource = data;
-        });
       },
-        (error) => {
-          console.log(error);
+        (error: HttpErrorResponse) => {
+          console.log(error.error);
         })
   }
 

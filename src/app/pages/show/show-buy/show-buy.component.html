@@ -1,20 +1,32 @@
 <div>
   <div class="main">
-    <div class="photo">
+
+    <h1>dados do show</h1>
+    <div>
       <img [src]="show?.photo" [alt]="show?.description">
+      <div>
+        <span>Artista: {{show?.name}}</span>
+        <span>Preço: {{show?.price | currency : 'BRL'}}</span>
+        <span>Endereço: {{show?.address}}</span>
+        <span>Data do Show: {{show?.dateShow | date : 'dd/MM/yyyy HH:mm'}}</span>
+        <span>Quantidade: {{show?.quantityBuy}}</span>
+        <span>Valor Total: {{getTotal(show) | currency : 'BRL'}}</span>
+      </div>
     </div>
 
     <div class="form" (keyup.enter)="buyShow()">
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Nome impresso no cartão</mat-label>
-        <input matInput placeholder="Nome impresso no cartão" [formControl]="nameFormControl" required minlength="3" maxlength="50">
+        <input matInput placeholder="Nome impresso no cartão" [formControl]="nameFormControl" required minlength="3"
+          maxlength="50">
         <mat-error *ngIf="nameFormControl.invalid">Campo inválido.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Número do cartão</mat-label>
-        <input matInput placeholder="Número do cartão" [formControl]="numberFormControl" required mask="0000 0000 0000 0000">
+        <input matInput placeholder="Número do cartão" [formControl]="numberFormControl" required
+          mask="0000 0000 0000 0000">
         <mat-error *ngIf="numberFormControl.invalid">Campo inválido.</mat-error>
       </mat-form-field>
 

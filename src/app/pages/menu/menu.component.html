@@ -5,3 +5,4 @@
         <button mat-menu-item *ngFor="let subItem of item.subItem" (click)="goTo(subItem.link)">{{subItem.label}}</button>
     </mat-menu>
 </span>
+<button mat-button><mat-icon matTooltip="Sair" (click)="logout()">logout</mat-icon></button>

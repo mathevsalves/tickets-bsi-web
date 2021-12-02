@@ -1,0 +1,45 @@
+<div class="master">
+  <div (keyup.enter)="createShow">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cantor(a)</mat-label>
+      <input matInput placeholder="José da Silva" [formControl]="name" required>
+      <mat-error *ngIf="name.invalid">Preencher o campo corretamente.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descrição Foto</mat-label>
+      <input matInput placeholder="Cantor José da Silva" [formControl]="description" required>
+      <mat-error *ngIf="description.invalid">Preencher o campo corretamente.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Preço</mat-label>
+      <input matInput placeholder="300,00" [formControl]="price" required min="0" type="number">
+      <mat-error *ngIf="price.invalid">Preencher o campo corretamente.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Localização</mat-label>
+      <input matInput placeholder="São Paulo - SP" [formControl]="address" required>
+      <mat-error *ngIf="address.invalid">Preencher o campo corretamente.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data Hora</mat-label>
+      <input matInput type="datetime-local" placeholder="01/12/2021 20:30" [formControl]="dateShow" required>
+      <mat-error *ngIf="dateShow.invalid">Preencher o campo corretamente.</mat-error>
+    </mat-form-field>
+
+    <span>
+      <button type="button" mat-raised-button (click)="selectButton()">Escolher imagem</button>
+      <input hidden (change)="handleFileSelect($event)" #fileInput type="file" id="file" accept="image/*">
+    </span>
+
+    <img *ngIf="showImage" [src]="showImage" [alt]="description.value" id="preview-image">
+
+    <button class="btn-register" mat-raised-button [disabled]="validatedForm()" (click)="createShow()">{{isEdit ? 'Atualizar' : 'Cadastrar'}}</button>
+
+  </div>
+
+</div>

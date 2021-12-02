@@ -1,3 +1,4 @@
+import { AppComponent } from './../../../app.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -19,10 +20,15 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private ticketsService: TicketsService
+    private ticketsService: TicketsService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('login')) {
+      this.router.navigate(['dashboard']);
+    } else
+      this.appComponent.showMenu = false;
   }
 
   public login() {
@@ -32,7 +38,9 @@ export class LoginComponent implements OnInit {
         .subscribe(data => {
           if (data) {
             // alert('Bem vindo(a) a aplicação!');
-            this.router.navigate(['show']);
+            this.router.navigate(['dashboard']);
+            localStorage.setItem('login', 'true');
+            this.appComponent.showMenu = true;
           }
           else
             alert('Email ou Senha incorretos!');
@@ -47,11 +55,6 @@ export class LoginComponent implements OnInit {
 
   public validatedLogin(): boolean {
     return this.email.invalid || this.password.invalid;
-  }
-
-  public register() {
-    alert('vou para cadastre-se');
-    this.router.navigate(['register']);
   }
 
   private dataLogin(): Login {

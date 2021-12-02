@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from 'src/app/interfaces/order';
 import { Show } from 'src/app/interfaces/show';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -11,7 +12,7 @@ import { TicketsService } from 'src/app/services/tickets.service';
 export class ShowFinishComponent implements OnInit {
 
   private id: number = 0;
-  public show!: Show;
+  public order: Order | null = null;
 
   constructor(
     private ticketsService: TicketsService,
@@ -22,15 +23,15 @@ export class ShowFinishComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(data => {
       this.id = parseInt(data.id, 10);
-      this.findByIdShow(this.id);
+      this.findByIdOrder(this.id);
     })
   }
 
-  private findByIdShow(id: number) {
+  private findByIdOrder(id: number) {
     this.ticketsService
-      .findByIdShow(id)
+      .findByIdOrder(id)
       .subscribe(data => {
-        this.show = data;
+        this.order = data;
       },
         (error) => {
           console.log(error);
