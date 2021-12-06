@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { User } from 'src/app/interfaces/user';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -22,7 +23,8 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private router: Router,
     private ticketsService: TicketsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -47,11 +49,11 @@ export class RegisterUserComponent implements OnInit {
       this.ticketsService
         .createUser(register)
         .subscribe(data => {
-          alert(`Usuário(a) ${data.name} ${this.isEdit ? 'atualizado(a)' : 'cadastrado(a)'} com sucesso!`);
+          this.notification.success(`Usuário(a) ${data.name} ${this.isEdit ? 'atualizado(a)' : 'cadastrado(a)'} com sucesso!`);
           this.router.navigate(['register/user']);
         },
           (error) => {
-            alert(`Error ao cadastrar usuário(a) ${register.name}, tente novamente!`);
+            this.notification.error(`Error ao cadastrar usuário(a) ${register.name}, tente novamente!`);
             console.log(error);
           })
     }
@@ -71,9 +73,9 @@ export class RegisterUserComponent implements OnInit {
         this.password.setValue(data.password);
       },
         (error) => {
-          alert('Usuário(a) não encontrado(a)');
+          this.notification.error('Usuário(a) não encontrado(a)');
           console.log(error);
-          this.router.navigate(['register/user/add'])
+          this.router.navigate(['register/user/add']);
         })
   }
 }

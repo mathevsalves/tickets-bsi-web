@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { User } from 'src/app/interfaces/user';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -17,7 +18,8 @@ export class RegisterUserListComponent implements OnInit {
   constructor(
     private ticketsService: TicketsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class RegisterUserListComponent implements OnInit {
           this.dataSource = data;
       },
         (error: HttpErrorResponse) => {
+          this.notification.error('Erro ao carregar a lista de usuários');
           console.log(error.error);
         })
   }
@@ -41,9 +44,11 @@ export class RegisterUserListComponent implements OnInit {
       .subscribe(data => {
         setTimeout(() => {
           this.findAllUsers();
+          this.notification.success(`Usuário com o ID ${id} deletado com sucesso!`);
         }, 1000);
       },
         (error) => {
+          this.notification.error(`Erro ao tentar deletar o usuário com o ID ${id}!`);
           console.log(error);
         })
   }

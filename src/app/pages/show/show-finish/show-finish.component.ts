@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { Order } from 'src/app/interfaces/order';
 import { Show } from 'src/app/interfaces/show';
 import { TicketsService } from 'src/app/services/tickets.service';
@@ -17,7 +18,8 @@ export class ShowFinishComponent implements OnInit {
   constructor(
     private ticketsService: TicketsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class ShowFinishComponent implements OnInit {
         this.order = data;
       },
         (error) => {
+          this.notification.error(`Erro ao carregar a tela!`);
           console.log(error);
         })
   }

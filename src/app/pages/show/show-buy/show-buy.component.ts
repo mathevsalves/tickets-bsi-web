@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { Order } from 'src/app/interfaces/order';
 import { Payment } from 'src/app/interfaces/payment';
 import { Show } from 'src/app/interfaces/show';
@@ -30,7 +31,8 @@ export class ShowBuyComponent implements OnInit {
     private ticketsService: TicketsService,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class ShowBuyComponent implements OnInit {
         this.show = data;
       },
         (error) => {
+          this.notification.success(`Erro ao carregar o show!`);
           console.log(error);
         })
   }
@@ -82,6 +85,7 @@ export class ShowBuyComponent implements OnInit {
           this.router.navigate(['show/finish', data.id]);
         },
           (error) => {
+            this.notification.error(`Erro ao tentar comprar o show do(a) ${product.name}`);
             console.log(error);
           })
     }

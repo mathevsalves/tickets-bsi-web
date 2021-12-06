@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { Show } from 'src/app/interfaces/show';
 import { User } from 'src/app/interfaces/user';
 import { TicketsService } from 'src/app/services/tickets.service';
@@ -20,7 +21,8 @@ export class RegisterShowListComponent implements OnInit {
     private ticketsService: TicketsService,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -36,13 +38,14 @@ export class RegisterShowListComponent implements OnInit {
           if (fe.photo != null) {
             let objectURL = 'data:image;base64,' + fe.photo;
             fe.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          }
+          } else 
+            fe.photo = '/assets/img/no-image.png';
           fe.edit = new Date(fe.dateShow).getTime() <= dateNow.getTime()
-
         });
         this.dataSource = data;
       },
         (error: HttpErrorResponse) => {
+          this.notification.error('Erro ao carregar a lista de produtos!');
           console.log(error);
         })
   }

@@ -1,6 +1,7 @@
 import { getLocaleNumberFormat } from '@angular/common';
 import { PipeCollector } from '@angular/compiler/src/template_parser/binding_parser';
 import { Component, OnInit, Pipe } from '@angular/core';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { PoChartSerie } from '@po-ui/ng-components/lib/components/po-chart/interfaces/po-chart-serie.interface';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -30,7 +31,10 @@ export class DashboardComponent implements OnInit {
     }
   ]
 
-  constructor(private ticketsService: TicketsService) { }
+  constructor(
+    private ticketsService: TicketsService,
+    private notification: PoNotificationService
+    ) { }
 
   ngOnInit(): void {
     this.findDashboard();
@@ -51,6 +55,7 @@ export class DashboardComponent implements OnInit {
         this.charts[2].title = `Qtd. total de compras finalizadas: ${data.reduce((acc, current) => acc += current.totalOrder, 0).toLocaleString('pt-BR')}`;
       },
         (error) => {
+          this.notification.error('Erro ao carregar dados do dashboard!');
           console.log(error);
         })
   }
@@ -60,9 +65,10 @@ export class DashboardComponent implements OnInit {
       .findDashboardAddress()
       .subscribe(data => {
         this.charts[3].series = data.map(map => <PoChartSerie>{ label: map.address.toUpperCase(), tooltip: `${map.address}: total de shows ${map.totalOrder.toLocaleString('pt-BR')}`, data: map.totalOrder });
-        this.charts[3].title = `Qtd. total de shows ${data.reduce((acc, current) => acc += current.totalOrder, 0).toLocaleString('pt-BR')}`;
+        this.charts[3].title = `Qtd. total de shows por cidade ${data.reduce((acc, current) => acc += current.totalOrder, 0).toLocaleString('pt-BR')}`;
       },
         (error) => {
+          this.notification.error('Erro ao carregar dados do dashboard!');
           console.log(error);
         })
   }

@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Show } from 'src/app/interfaces/show';
 import { TicketsService } from 'src/app/services/tickets.service';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { PoNotificationService } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-register-show',
@@ -29,7 +30,8 @@ export class RegisterShowComponent implements OnInit {
     private router: Router,
     private ticketsService: TicketsService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -59,11 +61,11 @@ export class RegisterShowComponent implements OnInit {
       this.ticketsService
         .createShow(show)
         .subscribe(data => {
-          alert(`Show ${data.description} ${this.isEdit ? 'atualizado(a)' : 'cadastrado(a)'} com sucesso!`);
+          this.notification.success(`Show ${data.description} ${this.isEdit ? 'atualizado(a)' : 'cadastrado(a)'} com sucesso!`);
           this.router.navigate(['register/show']);
         },
           (error) => {
-            alert(`Error ao cadastrar show ${show.description}, tente novamente!`);
+            this.notification.error(`Error ao cadastrar show ${show.description}, tente novamente!`);
             console.log(error);
           })
     }
@@ -83,17 +85,22 @@ export class RegisterShowComponent implements OnInit {
     this.ticketsService
       .findByIdShow(id)
       .subscribe(data => {
+        if (data.photo) {
+          let objectURL = 'data:image;base64,' + data.photo;
+          this.showImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          this.photo.setValue(data.photo);
+        } else {
+          this.showImage = 'assets/img/no-image.png';
+        }
+        
         this.name.setValue(data.name);
-        let objectURL = 'data:image;base64,' + data.photo;
-        this.showImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-
         this.address.setValue(data.address);
-        this.dateShow.setValue(new Date(data.dateShow).toISOString().slice(0,16));
+        this.dateShow.setValue(new Date(data.dateShow).toISOString().slice(0, 16));
         this.price.setValue(data.price);
         this.description.setValue(data.description);
       },
         (error) => {
-          alert('Show não encontrado');
+          this.notification.warning('Show não encontrado');
           console.log(error);
           this.router.navigate(['register/show/add'])
         })

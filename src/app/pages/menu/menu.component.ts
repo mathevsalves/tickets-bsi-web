@@ -17,7 +17,9 @@ export class MenuComponent implements OnInit {
     },
     {
       label: 'Relatórios', link: '', subItem: [
-        { label: '1', link: '' }
+        { label: 'Vendas efetuadas', link: 'report/1' },
+        { label: 'Total de ingressos por artista', link: 'report/2' },
+        { label: 'Qtd. total de shows por cidade', link: 'report/3' }
       ]
     },
     {

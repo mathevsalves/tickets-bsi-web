@@ -1,9 +1,9 @@
 <mat-tab-group mat-align-tabs="start" class="mat-tabs">
   <mat-tab label="PRÓXIMOS">
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly left">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly left" *ngIf="showsNext.length">
       <mat-card class="example-card" *ngFor="let show of showsNext; let i = index">
         <mat-card-header>
-          <img mat-card-image [src]="show.photo" [alt]="show.description" [matTooltip]="show.description">
+          <img mat-card-image [src]="show.photo != null ? show.photo : noImage" [alt]="show.description" [matTooltip]="show.description">
         </mat-card-header>
         <mat-card-content>
           <ul>
@@ -32,10 +32,10 @@
   </mat-tab>
 
   <mat-tab label="REALIZADOS">
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly left">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly left" *ngIf="showsPrevious.length">
       <mat-card class="example-card" *ngFor="let show of showsPrevious">
         <mat-card-header>
-          <img mat-card-image [src]="show.photo" [alt]="show.description" [matTooltip]="show.description">
+          <img mat-card-image [src]="show.photo != null ? show.photo : noImage" [alt]="show.description" [matTooltip]="show.description">
         </mat-card-header>
         <mat-card-content>
           <ul>

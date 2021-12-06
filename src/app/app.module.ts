@@ -16,20 +16,21 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PoChartModule, PoModule } from '@po-ui/ng-components';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from "./pages/login/login/login.component";
 import { MenuComponent } from './pages/menu/menu.component';
+import { RegisterShowListComponent } from './pages/register/register-show-list/register-show-list.component';
+import { RegisterShowComponent } from './pages/register/register-show/register-show.component';
 import { RegisterUserListComponent } from './pages/register/register-user-list/register-user-list.component';
 import { RegisterUserComponent } from './pages/register/register-user/register-user.component';
 import { ShowBuyComponent } from "./pages/show/show-buy/show-buy.component";
 import { ShowFinishComponent } from "./pages/show/show-finish/show-finish.component";
 import { ShowListComponent } from "./pages/show/show-list/show-list.component";
-import { RegisterShowComponent } from './pages/register/register-show/register-show.component';
-import { RegisterShowListComponent } from './pages/register/register-show-list/register-show-list.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PoChartModule, PoModule } from '@po-ui/ng-components';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 export const options: Partial<IConfig | null> | (() => Partial<IConfig>) = null;
 
@@ -51,7 +52,8 @@ registerLocaleData(localePt);
         RegisterUserListComponent,
         RegisterShowComponent,
         RegisterShowListComponent,
-        DashboardComponent
+        DashboardComponent,
+        ReportsComponent
     ],
     imports: [
         BrowserModule,

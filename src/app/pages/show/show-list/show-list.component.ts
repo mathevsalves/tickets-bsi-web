@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { Show } from 'src/app/interfaces/show';
 import { TicketsService } from 'src/app/services/tickets.service';
 
@@ -13,12 +14,13 @@ export class ShowListComponent implements OnInit {
 
   showsPrevious: Show[] = [];
   showsNext: Show[] = [];
+  noImage = 'assets/img/no-image.png';
 
   constructor(
     private ticketsService: TicketsService,
     private router: Router,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private notification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -26,23 +28,41 @@ export class ShowListComponent implements OnInit {
   }
 
   private findAllShows() {
-    this.ticketsService
-      .findAllShowsByDate(true)
-      .subscribe(data => {
-        data.forEach(fe => {
-          if (fe.photo != null) {
-            let objectURL = 'data:image;base64,' + fe.photo;
-            fe.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          }
-        });
-        this.showsPrevious = data;
-      },
-        (error) => {
-          console.log(error);
-        })
+    // this.ticketsService
+    //   .findAllShowsByDate(true)
+    //   .subscribe(data => {
+    //     data.forEach(fe => {
+    //       if (fe.photo != null) {
+    //         let objectURL = 'data:image;base64,' + fe.photo;
+    //         fe.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    //       }
+    //     });
+    //     this.showsPrevious = data;
+    //   },
+    //     (error) => {
+    //       this.notification.warning(`Não há shows para serem exibidos!`);
+    //       console.log(error);
+    //     })
+
+    // this.ticketsService
+    //   .findAllShowsByDate(false)
+    //   .subscribe(data => {
+    //     data.forEach(fe => {
+    //       if (fe.photo != null) {
+    //         let objectURL = 'data:image;base64,' + fe.photo;
+    //         fe.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    //       }
+    //       fe.quantityBuy = 1;
+    //     });
+    //     this.showsNext = data;
+    //   },
+    //     (error) => {
+    //       this.notification.warning(`Não há shows para serem exibidos!`);
+    //       console.log(error);
+    //     })
 
     this.ticketsService
-      .findAllShowsByDate(false)
+      .findAllShows()
       .subscribe(data => {
         data.forEach(fe => {
           if (fe.photo != null) {
@@ -51,9 +71,11 @@ export class ShowListComponent implements OnInit {
           }
           fe.quantityBuy = 1;
         });
-        this.showsNext = data;
+        this.showsNext = data.filter(filter => new Date(filter.dateShow).getTime() >= new Date().getTime());
+        this.showsPrevious = data.filter(filter => new Date(filter.dateShow).getTime() < new Date().getTime());
       },
         (error) => {
+          this.notification.warning(`Não há shows para serem exibidos!`);
           console.log(error);
         })
   }
