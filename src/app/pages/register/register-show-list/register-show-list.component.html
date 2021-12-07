@@ -1,5 +1,5 @@
 <button mat-menu-item (click)="createShow()" class="btn-add">
-  Adicionar Show<mat-icon>add</mat-icon>
+  ADICIONAR SHOW<mat-icon>add</mat-icon>
 </button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -8,29 +8,29 @@
     <td class="w-10" mat-cell *matCellDef="let element">{{element.id}}</td>
   </ng-container>
   <ng-container matColumnDef="name">
-    <th class="w-20" mat-header-cell *matHeaderCellDef>Cantor(a)</th>
+    <th class="w-20" mat-header-cell *matHeaderCellDef>CANTOR(A)</th>
     <td class="w-20" mat-cell *matCellDef="let element">{{element.name}}</td>
   </ng-container>
   <ng-container matColumnDef="price">
-    <th class="w-10" mat-header-cell *matHeaderCellDef>Preço</th>
+    <th class="w-10" mat-header-cell *matHeaderCellDef>PREÇO</th>
     <td class="w-10" mat-cell *matCellDef="let element">{{element.price | currency : 'BRL'}}</td>
   </ng-container>
   <ng-container matColumnDef="address">
-    <th class="w-20" mat-header-cell *matHeaderCellDef>Localização</th>
+    <th class="w-20" mat-header-cell *matHeaderCellDef>LOCALIZAÇÃO</th>
     <td class="w-20" mat-cell *matCellDef="let element">{{element.address}}</td>
   </ng-container>
   <ng-container matColumnDef="dateShow">
-    <th class="w-20" mat-header-cell *matHeaderCellDef>Data Hora</th>
+    <th class="w-20" mat-header-cell *matHeaderCellDef>DATA/HORA</th>
     <td class="w-20" mat-cell *matCellDef="let element">{{element.dateShow | date : 'dd/MM/yyyy HH:mm'}}</td>
   </ng-container>
   <ng-container matColumnDef="photo">
-    <th class="w-15" mat-header-cell *matHeaderCellDef>Foto</th>
+    <th class="w-15" mat-header-cell *matHeaderCellDef>FOTO</th>
     <td class="w-15" mat-cell *matCellDef="let element" [matTooltip]="element.description">
       <img [src]="element.photo" [alt]="element.description">
     </td>
   </ng-container>
   <ng-container matColumnDef="edit">
-    <th class="w-5" mat-header-cell *matHeaderCellDef>Editar</th>
+    <th class="w-5" mat-header-cell *matHeaderCellDef>EDITAR</th>
     <td class="w-5" mat-cell *matCellDef="let element" [matTooltip]="element.edit ? 'Não é possível editar uma show passado' : 'Editar'">
       <button mat-menu-item (click)="alterShow(element.id)" [disabled]="element.edit">
         <mat-icon>edit</mat-icon>

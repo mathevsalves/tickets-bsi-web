@@ -45,13 +45,13 @@ export class DashboardComponent implements OnInit {
     this.ticketsService
       .findDashboard()
       .subscribe(data => {
-        this.charts[0].series = data.sort((a, b) => a.totalValue < b.totalValue ? 1 : -1).map(map => <PoChartSerie>{ label: map.name.toUpperCase(), tooltip: `${map.name}: valor Total R$ ${map.totalValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`, data: map.totalValue });
+        this.charts[0].series = data.sort((a, b) => a.totalValue < b.totalValue ? 1 : -1).map(map => <PoChartSerie>{ label: map.name.toUpperCase(), tooltip: `${map.name}: R$ ${map.totalValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`, data: map.totalValue });
         this.charts[0].title = `Total de ingressos vendidos: R$ ${data.reduce((acc, current) => acc += current.totalValue, 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, currency: 'BRL' })}`;
 
-        this.charts[1].series = data.sort((a, b) => a.totalTickets < b.totalTickets ? 1 : -1).map(map => <PoChartSerie>{ label: map.name.toUpperCase(), tooltip: `${map.name}: total de ingressos ${map.totalTickets.toLocaleString('pt-BR')}`, data: map.totalTickets });
+        this.charts[1].series = data.sort((a, b) => a.totalTickets < b.totalTickets ? 1 : -1).map(map => <PoChartSerie>{ label: map.name.toUpperCase(), tooltip: `${map.name}: ${map.totalTickets.toLocaleString('pt-BR')}`, data: map.totalTickets });
         this.charts[1].title = `Qtd. total de ingressos vendidos: ${data.reduce((acc, current) => acc += current.totalTickets, 0).toLocaleString('pt-BR')}`;
 
-        this.charts[2].series = data.sort((a, b) => a.totalOrder < b.totalOrder ? 1 : -1).map(map => <PoChartSerie>{ label: map.name.toUpperCase(), tooltip: `${map.name}: total notas emitidas ${map.totalOrder.toLocaleString('pt-BR')}`, data: map.totalOrder });
+        this.charts[2].series = data.sort((a, b) => a.totalOrder < b.totalOrder ? 1 : -1).map(map => <PoChartSerie>{ label: map.name.toUpperCase(), tooltip: `${map.name}: ${map.totalOrder.toLocaleString('pt-BR')}`, data: map.totalOrder });
         this.charts[2].title = `Qtd. total de compras finalizadas: ${data.reduce((acc, current) => acc += current.totalOrder, 0).toLocaleString('pt-BR')}`;
       },
         (error) => {
@@ -64,8 +64,8 @@ export class DashboardComponent implements OnInit {
     this.ticketsService
       .findDashboardAddress()
       .subscribe(data => {
-        this.charts[3].series = data.map(map => <PoChartSerie>{ label: map.address.toUpperCase(), tooltip: `${map.address}: total de shows ${map.totalOrder.toLocaleString('pt-BR')}`, data: map.totalOrder });
-        this.charts[3].title = `Qtd. total de shows por cidade ${data.reduce((acc, current) => acc += current.totalOrder, 0).toLocaleString('pt-BR')}`;
+        this.charts[3].series = data.map(map => <PoChartSerie>{ label: map.address.toUpperCase(), tooltip: `${map.address}: ${map.totalOrder.toLocaleString('pt-BR')}`, data: map.totalOrder });
+        this.charts[3].title = `Qtd. total de shows por cidade: ${data.reduce((acc, current) => acc += current.totalOrder, 0).toLocaleString('pt-BR')}`;
       },
         (error) => {
           this.notification.error('Erro ao carregar dados do dashboard!');

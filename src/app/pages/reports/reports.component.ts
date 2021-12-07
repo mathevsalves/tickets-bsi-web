@@ -47,7 +47,7 @@ export class ReportsComponent implements OnInit {
             }
           });
           this.displayedColumns = ['id', 'price', 'quantity', 'product', 'paymentMoment', 'total'];
-          this.headers = ['Id', 'Preço', 'QTD Compra', 'Show', 'Data do Pagamento', 'Valor Total'];
+          this.headers = ['ID', 'PREÇO', 'QTD. COMPRA', 'SHOW', 'DATA DO PAGAMENTO', 'VALOR TOTAL'];
         },
           (error: HttpErrorResponse) => {
             this.notification.error('Erro ao carregar dados do relatório');
@@ -64,7 +64,7 @@ export class ReportsComponent implements OnInit {
             return map;
           });
           this.displayedColumns = ['name', 'address', 'dateShow', 'totalTickets', 'totalValue'];
-          this.headers = ['Nome', 'Endereço', 'Data do Show', 'QTD. Total de ingressos', 'Valor Total'];
+          this.headers = ['NOME', 'ENDEREÇO', 'DATA DO SHOW', 'QTD. TOTAL DE INGRESSOS', 'VALOR TOTAL'];
         },
           (error: HttpErrorResponse) => {
             this.notification.error('Erro ao carregar dados do relatório');
@@ -79,7 +79,7 @@ export class ReportsComponent implements OnInit {
             return map;
           });
           this.displayedColumns = ['address', 'totalShow', 'totalOrder', 'totalTickets', 'totalValue'];
-          this.headers = ['Cidade', 'Total de shows', 'Total da compra', 'QTD. total de ingressos', 'Valor Total'];
+          this.headers = ['CIDADE', 'TOTAL DE SHOWS', 'TOTAL DE COMPRA', 'QTD. TOTAL DE INGRESSOS', 'VALOR TOTAL'];
         },
           (error: HttpErrorResponse) => {
             this.notification.error('Erro ao carregar dados do relatório');
