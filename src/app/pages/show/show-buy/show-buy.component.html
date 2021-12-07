@@ -18,40 +18,40 @@
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>NOME DO PORTADOR</mat-label>
-        <input matInput placeholder="Nome impresso no cartão" [formControl]="nameFormControl" required minlength="3"
+        <input matInput placeholder="NOME IMPRESSO NO CARTÃO" [formControl]="nameFormControl" required minlength="3"
           maxlength="50">
-        <mat-error *ngIf="nameFormControl.invalid">Campo inválido.</mat-error>
+        <mat-error *ngIf="nameFormControl.invalid">Campo inválido</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>NÚMERO DO CARTÃO</mat-label>
-        <input matInput placeholder="Número do cartão" [formControl]="numberFormControl" required
+        <input matInput placeholder="NÚMERO DO CARTÃO" [formControl]="numberFormControl" required
           mask="0000 0000 0000 0000">
         <mat-error *ngIf="numberFormControl.invalid">Campo inválido.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-25">
         <mat-label>DATA DE VALIDADE</mat-label>
-        <input matInput placeholder="Data de validade" [formControl]="validatedFormControl" required mask="00/00">
-        <mat-error *ngIf="validatedFormControl.invalid">Campo inválido.</mat-error>
+        <input matInput placeholder="DATA DE VALIDADE" [formControl]="validatedFormControl" required mask="00/00">
+        <mat-error *ngIf="validatedFormControl.invalid">Campo inválido</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-22">
         <mat-label>CVV</mat-label>
         <input matInput placeholder="CVV" [formControl]="cvvFormControl" required mask="000">
-        <mat-error *ngIf="cvvFormControl.invalid">Campo inválido.</mat-error>
+        <mat-error *ngIf="cvvFormControl.invalid">Campo inválido</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-50">
         <mat-label>CPF</mat-label>
         <input matInput placeholder="CPF" [formControl]="cpfFormControl" required mask="000.000.000-00">
-        <mat-error *ngIf="cpfFormControl.invalid">Campo inválido.</mat-error>
+        <mat-error *ngIf="cpfFormControl.invalid">Campo inválido</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>E-MAIL</mat-label>
         <input matInput placeholder="exemplo@examplo.com" [formControl]="emailFormControl" required email>
-        <mat-error *ngIf="emailFormControl.invalid">E-mail inválido.</mat-error>
+        <mat-error *ngIf="emailFormControl.invalid">E-mail inválido</mat-error>
       </mat-form-field>
     </div>
   </div>

@@ -1,6 +1,8 @@
 * {
- text-align: center;
-  font-family: Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Roboto, sans-serif;
+  color: #4a5c60;
 }
 
 div {
@@ -14,7 +16,8 @@ button {
   background-color: #f68c1f;
   color: #fff;
   font-size: 2.5vh;
-  width: 15vw;
+  width: 25vw;
+
   &:hover {
     opacity: 0.8;
   }

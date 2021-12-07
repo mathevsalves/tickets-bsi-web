@@ -1,11 +1,14 @@
+
 div {
   width: 50vw;
   margin: 1vh auto;
   .main {
     h1 {
+      font-family: Roboto, sans-serif;
       text-transform: uppercase;
       text-align: center;
       font-weight: 500;
+      color: #4a5c60;
     }
     > div {
       display: inline-flex;
