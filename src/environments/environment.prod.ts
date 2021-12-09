@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  api: 'https://tickets-bsi-backend.herokuapp.com'
 };
